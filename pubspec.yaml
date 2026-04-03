@@ -47,3 +47,7 @@ flutter:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/icon/icon.png

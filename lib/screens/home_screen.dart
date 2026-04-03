@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/dog.dart';
@@ -26,7 +25,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Dog> dogs = [];
-  final Set<String> _notifiedDogs = {};
   
   SortOption _currentSort = SortOption.name;
   FilterOption _currentFilter = FilterOption.all;
@@ -79,7 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
         result = result.where((dog) => dog.mood.contains('Happy')).toList();
         break;
       case FilterOption.all:
-      default:
         break;
     }
     return result;
@@ -116,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _triggerFeedingNotifications(); 
   }
 
-  Route _createRoute(Widget page) {
+  Route<Dog> _createRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -186,45 +183,6 @@ class _HomeScreenState extends State<HomeScreen> {
     if (mood.contains('Lazy')) return Colors.blue;
     if (mood.contains('Sick')) return Colors.indigo;
     return Colors.deepPurple;
-  }
-
-  Widget _buildDogAvatar(Dog dog) {
-    if (dog.imagePath != null) {
-      return Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            )
-          ],
-          image: DecorationImage(
-            image: FileImage(File(dog.imagePath!)),
-            fit: BoxFit.cover,
-          ),
-        ),
-      );
-    }
-
-    String emoji = '🐶';
-    return Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        color: _getMoodColor(dog.mood).withOpacity(0.15),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        _getEmoji(dog.mood),
-        style: const TextStyle(fontSize: 28),
-      ),
-    );
   }
 
   @override

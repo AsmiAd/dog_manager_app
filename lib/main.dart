@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'screens/home_screen.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -14,7 +13,7 @@ Future<void> showWalkWarning(String dogName) async {
     priority: Priority.high,
     color: Colors.blue,
   );
-  const NotificationDetails platformDetails = NotificationDetails(
+  final NotificationDetails platformDetails = NotificationDetails(
     android: androidDetails,
     iOS: DarwinNotificationDetails(),
     macOS: DarwinNotificationDetails(),
@@ -37,7 +36,7 @@ Future<void> showFeedingWarning(String dogName) async {
     priority: Priority.high,
   );
   
-  const NotificationDetails platformDetails = NotificationDetails(
+  final NotificationDetails platformDetails = NotificationDetails(
     android: androidDetails,
     iOS: DarwinNotificationDetails(),
     macOS: DarwinNotificationDetails(),
@@ -57,7 +56,7 @@ Future<void> main() async {
   const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
   const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
   
-  const InitializationSettings initSettings = InitializationSettings(
+  final InitializationSettings initSettings = InitializationSettings(
     android: androidSettings,
     iOS: iosSettings,
     macOS: iosSettings,

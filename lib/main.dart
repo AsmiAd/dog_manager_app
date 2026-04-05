@@ -5,7 +5,7 @@ import 'screens/home_screen.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> showWalkWarning(String dogName) async {
-  const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+  final AndroidNotificationDetails androidDetails = const AndroidNotificationDetails(
     'walk_channel',
     'Walk Reminders',
     channelDescription: 'Notifications for missing dog walks',
@@ -15,8 +15,8 @@ Future<void> showWalkWarning(String dogName) async {
   );
   final NotificationDetails platformDetails = NotificationDetails(
     android: androidDetails,
-    iOS: DarwinNotificationDetails(),
-    macOS: DarwinNotificationDetails(),
+    iOS: const DarwinNotificationDetails(),
+    macOS: const DarwinNotificationDetails(),
   );
 
   await flutterLocalNotificationsPlugin.show(
@@ -28,7 +28,7 @@ Future<void> showWalkWarning(String dogName) async {
 }
 
 Future<void> showFeedingWarning(String dogName) async {
-  const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+  final AndroidNotificationDetails androidDetails = const AndroidNotificationDetails(
     'feeding_channel',
     'Feeding Reminders',
     channelDescription: 'Reminders to feed your dogs',
@@ -38,8 +38,8 @@ Future<void> showFeedingWarning(String dogName) async {
   
   final NotificationDetails platformDetails = NotificationDetails(
     android: androidDetails,
-    iOS: DarwinNotificationDetails(),
-    macOS: DarwinNotificationDetails(),
+    iOS: const DarwinNotificationDetails(),
+    macOS: const DarwinNotificationDetails(),
   );
   
   await flutterLocalNotificationsPlugin.show(
@@ -53,16 +53,16 @@ Future<void> showFeedingWarning(String dogName) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-  const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
+  const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+  const DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings();
   
-  final InitializationSettings initSettings = InitializationSettings(
-    android: androidSettings,
-    iOS: iosSettings,
-    macOS: iosSettings,
+  const InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsDarwin,
+    macOS: initializationSettingsDarwin,
   );
   
-  await flutterLocalNotificationsPlugin.initialize(initSettings);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
   runApp(const DogManagerApp());
 }
